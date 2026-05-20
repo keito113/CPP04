@@ -1,5 +1,4 @@
 #include "WrongAnimal.hpp"
-
 #include <iostream>
 
 WrongAnimal::WrongAnimal(const std::string& initialType) : type(initialType) {

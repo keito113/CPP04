@@ -3,7 +3,6 @@
 #include "Dog.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
-
 #include <iostream>
 
 static void	printSection(const std::string& title) {

@@ -1,5 +1,4 @@
 #include "Animal.hpp"
-
 #include <iostream>
 
 Animal::Animal(const std::string& initialType) : type(initialType) {
