@@ -1,8 +1,7 @@
 #include "Animal.hpp"
 #include "Cat.hpp"
 #include "Dog.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
+
 #include <iostream>
 
 static void	printSection(const std::string& title) {
@@ -10,62 +9,62 @@ static void	printSection(const std::string& title) {
 	std::cout << "=== " << title << " ===" << std::endl;
 }
 
+static void	destroyAnimals(Animal** animals, int count) {
+	for (int i = 0; i < count; ++i) {
+		delete animals[i];
+		animals[i] = 0;
+	}
+}
+
+static void	printIdea(const std::string& label, bool success, const std::string& idea) {
+	std::cout << label << ": ";
+	if (success)
+		std::cout << idea;
+	else
+		std::cout << "[invalid index]";
+	std::cout << std::endl;
+}
+
 int	main(void) {
-	printSection("Direct Objects");
-	Animal	meta;
-	Dog		dog;
-	Cat		cat;
+	const int	animalCount = 4;
+	Animal*		animals[animalCount] = {0};
+	std::string	idea;
 
-	std::cout << meta.getType() << std::endl;
-	std::cout << dog.getType() << std::endl;
-	std::cout << cat.getType() << std::endl;
-	meta.makeSound();
-	dog.makeSound();
-	cat.makeSound();
+	printSection("Animal Array");
+	try {
+		for (int i = 0; i < animalCount / 2; ++i)
+			animals[i] = new Dog();
+		for (int i = animalCount / 2; i < animalCount; ++i)
+			animals[i] = new Cat();
+	} catch (...) {
+		destroyAnimals(animals, animalCount);
+		std::cerr << "Failed to create animal array" << std::endl;
+		return (1);
+	}
+	for (int i = 0; i < animalCount; ++i) {
+		std::cout << animals[i]->getType() << std::endl;
+		animals[i]->makeSound();
+	}
 
-	printSection("Polymorphism With Pointers");
-	const Animal* animalPtr = new Animal();
-	const Animal* dogPtr = new Dog();
-	const Animal* catPtr = new Cat();
+	printSection("Delete Animals");
+	destroyAnimals(animals, animalCount);
 
-	std::cout << animalPtr->getType() << std::endl;
-	std::cout << dogPtr->getType() << std::endl;
-	std::cout << catPtr->getType() << std::endl;
-	animalPtr->makeSound();
-	dogPtr->makeSound();
-	catPtr->makeSound();
+	printSection("Dog Copy Constructor");
+	Dog originalDog;
+	originalDog.setIdea(0, "bone");
+	Dog copiedDog(originalDog);
+	originalDog.setIdea(0, "new bone");
+	printIdea("originalDog idea[0]", originalDog.getIdea(0, idea), idea);
+	printIdea("copiedDog idea[0]", copiedDog.getIdea(0, idea), idea);
 
-	delete animalPtr;
-	delete dogPtr;
-	delete catPtr;
-
-	printSection("Polymorphism With References");
-	const Animal& dogRef = dog;
-	const Animal& catRef = cat;
-
-	dogRef.makeSound();
-	catRef.makeSound();
-
-	printSection("Wrong Animal");
-	WrongCat			wrongCat;
-	const WrongAnimal&	wrongRef = wrongCat;
-	const WrongAnimal*	wrongPtr = &wrongCat;
-
-	wrongCat.makeSound();
-	wrongRef.makeSound();
-	wrongPtr->makeSound();
-
-	printSection("Copy And Assignment");
-	Dog	copyDog(dog);
-	Cat	assignedCat;
-	Cat&	sameCat = assignedCat;
-
-	assignedCat = cat;
-	assignedCat = sameCat;
-	copyDog.makeSound();
-	assignedCat.makeSound();
-	std::cout << copyDog.getType() << std::endl;
-	std::cout << assignedCat.getType() << std::endl;
+	printSection("Cat Assignment");
+	Cat originalCat;
+	Cat assignedCat;
+	originalCat.setIdea(1, "sun");
+	assignedCat = originalCat;
+	originalCat.setIdea(1, "moon");
+	printIdea("originalCat idea[1]", originalCat.getIdea(1, idea), idea);
+	printIdea("assignedCat idea[1]", assignedCat.getIdea(1, idea), idea);
 
 	return (0);
 }
