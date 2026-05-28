@@ -58,13 +58,17 @@ int	main(void) {
 	printIdea("copiedDog idea[0]", copiedDog.getIdea(0, idea), idea);
 
 	printSection("Cat Assignment");
-	Cat originalCat;
-	Cat assignedCat;
-	originalCat.setIdea(1, "sun");
-	assignedCat = originalCat;
-	originalCat.setIdea(1, "moon");
-	printIdea("originalCat idea[1]", originalCat.getIdea(1, idea), idea);
-	printIdea("assignedCat idea[1]", assignedCat.getIdea(1, idea), idea);
-
+	try{
+		Cat originalCat;
+		Cat assignedCat;
+		originalCat.setIdea(1, "sun");
+		assignedCat = originalCat;
+		originalCat.setIdea(1, "moon");
+		printIdea("originalCat idea[1]", originalCat.getIdea(1, idea), idea);
+		printIdea("assignedCat idea[1]", assignedCat.getIdea(1, idea), idea);
+	} catch (...) {
+		std::cout << "Failed during Cat assignment test" << std::endl;
+		return(1);
+	}
 	return (0);
 }

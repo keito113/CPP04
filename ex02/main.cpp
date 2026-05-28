@@ -20,7 +20,7 @@ static void	destroyAnimals(Animal** animals, int count) {
 
 static void	printIdeaResult(const std::string& label, bool success, const std::string& idea) {
 	std::cout << label << ": ";
-	if (success)
+	if (success == true)
 		std::cout << idea;
 	else
 		std::cout << "[invalid index]";

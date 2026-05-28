@@ -35,8 +35,13 @@ int	main(void) {
 	dogPtr->makeSound();
 	catPtr->makeSound();
 
+	std::cout << "--- delete animalPtr ---" << std::endl;
 	delete animalPtr;
+
+	std::cout << "--- delete dogPtr ---" << std::endl;
 	delete dogPtr;
+
+	std::cout << "--- delete catPtr ---" << std::endl;
 	delete catPtr;
 
 	printSection("Polymorphism With References");
