@@ -85,14 +85,5 @@ int	main(void) {
 	std::cout << "set idea[-1]: " << (originalDog.setIdea(-1, "bad") ? "ok" : "rejected") << std::endl;
 	std::cout << "set idea[100]: " << (originalDog.setIdea(100, "bad") ? "ok" : "rejected") << std::endl;
 
-	printSection("Wrong Animal");
-	WrongCat			wrongCat;
-	const WrongAnimal&	wrongRef = wrongCat;
-	const WrongAnimal*	wrongPtr = &wrongCat;
-
-	wrongCat.makeSound();
-	wrongRef.makeSound();
-	wrongPtr->makeSound();
-
 	return (0);
 }
